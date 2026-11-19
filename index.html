@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f6ef">
+  <title>Fieldwork · UI field guide</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="demos/controls.css"><link rel="stylesheet" href="demos/workspace.css">
+</head>
+<body>
+<header class="top"><a href="#home" class="brand"><span class="mark" aria-hidden="true">▦</span> Fieldwork</a><span>Product engineering field guide</span></header>
+<main class="page">
+  <nav id="trail" aria-label="Breadcrumb"></nav>
+  <div class="intro" id="intro"><div><small>INTERFACE LIBRARY</small><h1>UI field guide<span>.</span></h1><p>Choose a family to explore its patterns, or search for what you want to do.</p></div>
+    <div class="totals"><b id="total"></b><span>patterns</span><b id="families"></b><span>families</span></div>
+  </div>
+  <div class="tools"><label class="search"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></svg><input type="search" id="search" aria-keyshortcuts="/" aria-label="Search by name or business need" placeholder="Search a name or need, e.g. pick a customer by email"><kbd aria-hidden="true">/</kbd></label>
+  </div>
+  <section id="browse" aria-labelledby="browse-title">
+    <h2 id="browse-title" tabindex="-1"></h2><p id="summary" aria-live="polite"></p>
+    <div id="directory"></div>
+  </section>
+  <article id="detail" aria-label="Pattern details" hidden></article>
+</main>
+<script src="catalog.js"></script><script src="search.js"></script>
+<script>const demos = Object.create(null);</script>
+<script src="demos/controls.js"></script><script src="demos/workspace.js"></script><script src="demos/charts.js"></script><script src="previews.js"></script><script src="app.js"></script>
+</body></html>

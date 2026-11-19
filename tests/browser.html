@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fieldwork browser checks</title></head>
+<body><h1>Fieldwork browser checks</h1><pre id="report" aria-live="polite">Opening the guide…</pre>
+<iframe title="Guide under test" width="100%" height="700" id="guide"></iframe>
+<script>
+const frame = document.querySelector('#guide');
+const report = document.querySelector('#report');
+frame.onload = async () => {
+  try {
+    const doc = frame.contentDocument;
+    const win = frame.contentWindow;
+    const one = selector => doc.querySelector(selector);
+    const check = (condition, message) => {if (!condition) throw Error(message)};
+    const visit = async hash => {
+      const changed = new Promise(resolve => win.addEventListener('hashchange',resolve,{once:true}));
+      win.location.hash=hash; await changed;
+    };
+    const families = [...doc.querySelectorAll('#directory a')].map(a=>a.hash);
+    check(families.length===12 && one('#detail').hidden,'Home family directory');
+    const slash = target => target.dispatchEvent(new win.KeyboardEvent('keydown',{key:'/',bubbles:true,cancelable:true}));
+    slash(doc.body);
+    check(doc.activeElement===one('#search'),'Slash focuses search');
+    check(doc.querySelectorAll('#directory .pattern-preview svg').length===12,'Family previews');
+    const ids=[];
+    for(const family of families){
+      await visit(family);
+      check(one('#detail').hidden && one('#directory a'),'Family overview');
+      check([...doc.querySelectorAll('.directory-card')].every(card=>card.querySelector('.pattern-preview svg')),'Missing preview '+family);
+      ids.push(...[...doc.querySelectorAll('#directory .directory-card')].map(a=>a.hash));
+    }
+    check(new Set(ids).size===112,'All patterns reachable through families');
+    for(const id of ids){
+      await visit(id);
+      check(one('.demo').childElementCount>0,'Empty demo '+id);
+    }
+    await visit('#button/secondary');
+    check(one('#pattern-title').textContent==='Secondary button' && one('.variant-focus'),'Button variant');
+    await visit('#home');
+    const input=one('#search');
+    input.value='kanban'; input.dispatchEvent(new win.Event('input'));
+    check(doc.querySelectorAll('#directory .directory-card').length===1,'Single search result');
+    for (const width of [1000,260]) {
+      frame.style.width=width+'px';
+      const expected=Math.min(320,one('#directory').getBoundingClientRect().width);
+      check(Math.abs(one('.directory-card').getBoundingClientRect().width-expected)<1,'Single-result width at '+width);
+    }
+    frame.style.width='';
+    input.value='pick a customer by email';
+    input.dispatchEvent(new win.Event('input'));
+    check(one('#directory a').hash==='#combobox','Search ranking');
+    await visit(one('#directory a').hash);
+    const field = one('.demo [role=combobox]');
+    field.focus(); field.value = 'Sam'; field.dispatchEvent(new win.Event('input'));
+    for (const key of ['ArrowDown','Enter']) field.dispatchEvent(new win.KeyboardEvent('keydown',{key,bubbles:true}));
+    check(field.value.includes('Sam') && field.value !== 'Sam', 'Keyboard selection');
+    slash(field);
+    check(doc.activeElement===field && win.location.hash==='#combobox','Typing slash in a field must stay in the demo');
+    const compare = one('.compare select');
+    compare.value='native-select'; compare.dispatchEvent(new win.Event('change'));
+    check(doc.querySelectorAll('.specimen').length === 2 && field.isConnected, 'Comparison replaced the first demo');
+    await visit('#home');
+    input.value='xyzzyzzz'; input.dispatchEvent(new win.Event('input'));
+    check(one('#summary').textContent==='0 matching patterns','Empty search state');
+    one('#directory button').click();
+    check(doc.querySelectorAll('#directory a').length===12,'Search reset');
+    report.textContent='Passed · 112 demos mounted, hash selection, ranking, keyboard selection, comparison, empty state and reset.';
+  } catch (error) {report.textContent='Failed · '+error.message;}
+};
+frame.src='../index.html';
+</script></body></html>

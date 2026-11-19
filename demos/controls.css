@@ -1,0 +1,52 @@
+.control-demo { position: relative; min-width: 0; }
+.control-demo [hidden] { display: none !important; }
+.control-demo input, .control-demo textarea, .control-demo select { max-width: 100%; min-width: 0; font: inherit; }
+.control-demo textarea { display: block; width: 100%; margin-bottom: .6rem; }
+.control-demo fieldset { min-width: 0; margin: 0; }
+.control-demo .cd-row, .control-demo .cd-facets, .control-demo .cd-crumb { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.control-demo nav { padding: .5rem 0; gap: .65rem; }
+.control-demo a { color: #285737; }
+.control-demo .cd-primary, .control-demo [aria-current="page"]:is(button,a) { background: #234b39; color: white; }
+.control-demo .cd-danger { color: #963927; border-color: #ab5445; }
+.control-demo .cd-menu { width: fit-content; min-width: 9rem; border: 1px solid #aab9a9; border-radius: .4rem; padding: .3rem; background: white; margin-top: .3rem; }
+.control-demo .cd-menu button { display: block; width: 100%; text-align: left; border: 0; }
+.control-demo .cd-preview, .control-demo .cd-sample { background: white; padding: .75rem; }
+.control-demo .cd-bold { font-weight: bold; }
+.control-demo .cd-italic { font-style: italic; }
+.control-demo .cd-underline { text-decoration: underline; }
+.control-demo .cd-tokens { margin-top: .6rem; }
+.control-demo .cd-tokens button { border-radius: 2rem; }
+.control-demo .cd-sample { border-left: .7rem solid; }
+.control-demo .cd-dual { position: relative; margin: 1rem .4rem; height: 1.75rem; }
+.cd-dual span { position: absolute; inset: 45% 0 auto; height: .3rem; background: linear-gradient(to right,#bac5ba var(--low),#395f42 var(--low),#395f42 var(--high),#bac5ba var(--high)); }
+.control-demo .cd-dual input { position: absolute; inset: 0; width: 100%; margin: 0; appearance: none; background: transparent; pointer-events: none; }
+.cd-dual input::-webkit-slider-thumb { appearance: none; pointer-events: auto; width: 1.15rem; height: 1.15rem; background: #365739; border: 2px solid white; box-shadow: 0 0 0 1px #365739; border-radius: 50%; cursor: grab; }
+.cd-dual input::-moz-range-thumb { pointer-events: auto; width: 1rem; height: 1rem; background: #365739; border: 2px solid white; border-radius: 50%; cursor: grab; }
+.cd-dual input:last-child { z-index: 2; }
+.control-demo .cd-segments label { display: inline-block; cursor: pointer; position: relative; }
+.cd-segments input, .control-demo .cd-skip:not(:focus) { position: absolute; width: 1px; height: 1px; padding: 0; clip-path: inset(50%); overflow: hidden; }
+.cd-segments span { display: inline-block; border: 1px solid #99ac98; background: white; padding: .35rem .8rem; }
+.cd-segments input:checked + span { background: #234b39; color: white; }
+.cd-segments input:focus-visible + span { outline: 3px solid #7c912e; }
+.control-demo .cd-cards { display: flex; flex-wrap: wrap; padding: 0; gap: .5rem; }
+.cd-cards li { list-style: none; border: 1px solid #abbba8; padding: .6rem; background: white; border-radius: .3rem; }
+.control-demo .cd-errors { border-left: .25rem solid #963927; background: white; padding: .6rem; }
+.control-demo [aria-invalid=true] { border-color: #963927; }
+.control-demo .cd-sidebar { display: grid; grid-template-columns: auto 1fr; gap: 1rem; }
+.control-demo .cd-sidebar nav { display: grid; align-content: start; }
+.cd-sidebar a { padding: .2rem .4rem; }
+.control-demo .cd-records { list-style: none; margin: .5rem 0; padding: 0; }
+.cd-records li { display: flex; justify-content: space-between; gap: .4rem; flex-wrap: wrap; padding: .4rem 0; border-bottom: 1px solid #cad4c6; }
+.control-demo .cd-feed, .control-demo .cd-guide { height: 9rem; overflow-y: auto; background: white; padding: .6rem; }
+.control-demo .cd-feed article { padding: .55rem; margin: .25rem 0; }
+.control-demo .cd-feed p { margin: .15rem 0; }
+.control-demo .cd-facets { gap: 2rem; align-items: start; }
+.control-demo .cd-guide > div { min-height: 8.4rem; }
+.control-demo .cd-guide h4 { margin-top: .2rem; }
+.control-demo .cd-skip:focus { display: block; padding: .25rem; }
+.control-demo .options li[aria-selected=true] { color: #203d32; background: #d6e8c4; }
+.control-demo label, .control-demo legend { display: block; }
+.control-demo fieldset { border: 0; padding: 0; }
+.control-demo legend, .control-demo label[for] { font-weight: 650; }
+.control-demo .options { list-style: none; margin: 0; padding: 0; background: white; border-radius: .35rem; }
+.control-demo .options li { padding: .4rem .55rem; cursor: pointer; }
